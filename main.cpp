@@ -1,40 +1,45 @@
+#include <functional>
 #include <iostream>
+#include <thread>
+#include <threads.h>
 
+typedef void (*pFunc) ();
 
-template <typename T>
-T Calculation(T x, T y) {
-    return static_cast<T>(x + y);
+void Correct() {
+	std::cout << "正解！" << std::endl;
 }
 
-int NormalWages(int hours) {
-    return 1072 * hours;
+void Incorrect() {
+    std::cout << "不正解！" << std::endl;
 }
 
-int RecursiveWages(int hours) {
-    if(hours == 1){
-        return 100;
-    }
-
-    return RecursiveWages(hours-1) * 2 - 50;
+void RunTaskLater(pFunc task, int delay) {
+    std::thread([task, delay]{
+        std::this_thread::sleep_for(std::chrono::seconds(delay));
+        task();
+    }).detach();
 }
+
 
 int main() {
-	int hours = 1;
+    pFunc task;
+	char buffer;
 
-    int n = NormalWages(hours);
-	int r = RecursiveWages(hours);
+    srand(time(nullptr));
 
-    
-    while(r < n){
+    std::cout << "サイコロの出目は奇数か偶数か : Odd/Even[o/e]";
+    std::cin >> buffer;
 
-        n = NormalWages(hours);
-        r = RecursiveWages(hours);
+    int dice = rand() % 6 + 1;
 
-
-        std::cout << hours << " : " << n << " / " << r << std::endl;
-        ++hours;
+    if(buffer == 'o' && dice %2 != 0 || buffer == 'e' && dice % 2 == 0){
+        task = Correct;
+    } else{
+        task = Incorrect;
     }
 
+    RunTaskLater(task, 3);
+    std::this_thread::sleep_for(std::chrono::seconds(4));
 
 	return 0;
 }
