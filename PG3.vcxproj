@@ -131,7 +131,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cat.cpp" />
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Dog.cpp" />
     <ClCompile Include="IShape.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
@@ -141,7 +143,10 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animal.h" />
+    <ClInclude Include="Cat.h" />
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="Dog.h" />
     <ClInclude Include="IShape.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Rectangle.h" />

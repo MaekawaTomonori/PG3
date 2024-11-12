@@ -1,17 +1,20 @@
-
+#include <iostream>
 #include <memory>
+#include <vector>
 
-#include "Circle.h"
-#include "Rectangle.h"
+#include "Animal.h"
+#include "Cat.h"
+#include "Dog.h"
 
 int main() {
-    std::unique_ptr<IShape> circle = std::make_unique<Circle>(5);
-    circle->Size();
-    circle->Draw();
+	std::vector<std::unique_ptr<Animal>> animals;
 
-    std::unique_ptr<IShape> rectangle = std::make_unique<Rectangle>(5, 10);
-    rectangle->Size();
-    rectangle->Draw();
+    animals.push_back(std::make_unique<Cat>());
+	animals.push_back(std::make_unique<Dog>());
+
+    for (const auto& animal : animals){
+        animal->Speak();
+    }
 
 	return 0;
 }
